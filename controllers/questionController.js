@@ -51,7 +51,7 @@ exports.answerQuestion = async (req, res) => {
     });
   }
   try {
-    await Question.findByIdAndUpdate(
+    return await Question.findByIdAndUpdate(
       id,
       {
         $push: {
@@ -77,11 +77,6 @@ exports.answerQuestion = async (req, res) => {
         });
       },
     );
-    // if error
-    return res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
-    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -93,7 +88,7 @@ exports.answerQuestion = async (req, res) => {
 
 exports.getAllQuestions = async (req, res) => {
   try {
-    await Question.find({}, (error, questions) => {
+    return await Question.find({}, (error, questions) => {
       if (error) {
         console.log(error);
         return res.status(500).json({
@@ -107,10 +102,6 @@ exports.getAllQuestions = async (req, res) => {
         questions,
       });
     });
-    return res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
-    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -123,7 +114,7 @@ exports.getAllQuestions = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
   const { id } = req.params;
   try {
-    await Question.findByIdAndRemove(id, (error, success) => {
+    return await Question.findByIdAndRemove(id, (error, success) => {
       if (error) {
         console.log(error);
         return res.status(500).json({
@@ -137,11 +128,6 @@ exports.deleteQuestion = async (req, res) => {
         message: "Question deleted successfully",
         response: success,
       });
-    });
-    // if error
-    return res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
     });
   } catch (error) {
     console.log(error);
