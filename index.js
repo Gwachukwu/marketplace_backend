@@ -3,7 +3,8 @@ const cors = require("cors");
 
 const app = express();
 const connectDB = require("./model/connect");
-const questionRoutes = require("./routes/questions");
+const productRoutes = require("./routes/products");
+const userRoutes = require("./routes/user");
 
 require("dotenv").config();
 
@@ -12,7 +13,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(questionRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/routes", userRoutes);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
