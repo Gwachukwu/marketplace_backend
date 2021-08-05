@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api/products", productRoutes);
-app.use("/api/routes", userRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");

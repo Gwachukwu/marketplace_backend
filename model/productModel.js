@@ -17,6 +17,15 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  price:{
+    type: Number,
+    required: true,
+  },
+  type:{
+    type: String,
+    enum : ['product','addon'],
+    default: 'product'
+  },
   store_slug: {
     type: String,
     required: true,

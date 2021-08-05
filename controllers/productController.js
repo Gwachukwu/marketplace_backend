@@ -1,10 +1,10 @@
 const Product = require("../model/productModel");
 
 exports.addProduct = async (req, res) => {
-  const { name, title, description, image, store_slug } = req.body;
+  const { name, title, description, image, price, store_slug } = req.body;
 
   // validation
-  if (!name || !title || !description || !image || !store_slug) {
+  if (!name || !title || !description || !image || !store_slug || !price) {
     return res.status(400).json({
       success: false,
       error: "All fields are required",
@@ -18,6 +18,7 @@ exports.addProduct = async (req, res) => {
       description,
       image,
       store_slug,
+      price,
     });
     const postProduct = await newProduct.save();
 
@@ -42,9 +43,9 @@ exports.addProduct = async (req, res) => {
 };
 
 exports.getStoreProducts = async (req, res) => {
-  const slug = req.params.store_slug
+  const { store_slug } = req.params;
   try {
-    return await Product.find({store_slug:"bestelectric"}, (error, products) => {
+    return await Product.find({ store_slug }, (error, products) => {
       if (error) {
         console.log(error);
         return res.status(500).json({
